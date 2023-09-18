@@ -34,9 +34,7 @@ export default function UserEvents() {
 
 
 
-    useEffect(() => {
-        fetchData()
-    }, [])
+  
 
 
 
@@ -74,10 +72,12 @@ export default function UserEvents() {
             console.log("searchevent", searchQuery.toLowerCase())
             return event.name.toLowerCase().includes(searchQuery.toLowerCase());
         });
-
         setFilter(filteredEventsByName)
     }
 
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     const handleTodayButtonClick = () => {
 

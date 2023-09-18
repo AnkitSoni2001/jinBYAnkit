@@ -27,8 +27,8 @@
 
 
 .card {
-    width: 45rem;
-    height: 9rem;
+    width: 51rem;
+    height: 10.5rem;
     box-shadow: 5px 5px rgba(112, 120, 230, 0.267);
 }
 
@@ -155,7 +155,8 @@
 
 /* Customize the scrollbar thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
-    background-color: #ffb4cd;
+    background-color: #19105B;
+    /* background-color: #ffb4cd; */
     /* Background color of the thumb */
     border-radius: 10px;
     /* Rounded corners of the thumb */

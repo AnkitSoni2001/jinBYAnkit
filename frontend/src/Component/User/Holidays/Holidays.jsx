@@ -61,8 +61,8 @@ function Holidays() {
     let holiday = b.description
     let free = {
       'title': holiday,
-      'start': new Date(year, month, day + 1),
-      'end': new Date(year, month, day + 1)
+      'start': new Date(year, month, day),
+      'end': new Date(year, month, day)
     }
     return free
   }

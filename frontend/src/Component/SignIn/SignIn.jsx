@@ -44,37 +44,50 @@ const SignIn = () => {
 
 
     const handleSignIn = async () => {
-        const emailIsValid = validateEmail(email);
-        const passwordIsValid = validatePassword(password);
+        if (email && password) {
+            const emailIsValid = validateEmail(email);
+            const passwordIsValid = validatePassword(password);
 
-        if (!emailIsValid) {
-            toast.error("Email should be of the format user@jmangroup.com");
-        }
+            // if (!emailIsValid) {
+            //     toast.error("Email should be of the format user@jmangroup.com");
+            // }
 
-        if (!passwordIsValid) {
-            toast.error("Password should contain at least 8 characters with at least one uppercase letter, one lowercase letter, one numeric value, and one special character.");
-        }
+            // else if (!passwordIsValid) {
+            //     toast.error("Password should contain at least 8 characters with at least one uppercase letter, one lowercase letter, one numeric value, and one special character.");
+            // }
 
-        if (emailIsValid && passwordIsValid) {
-            try {
-                const response= await signInApi.SingIn(Info)
-                console.log(response)
-                localStorage.setItem('jwt',response.data.jsonToken)
-                localStorage.setItem("id", response.data.user.id)
-                if (response.data.role === 'admin') {
-                    toast.success("Login successful as admin")
-                    navigate('/admin/events')
+            if (emailIsValid && passwordIsValid) {
+                try {
+                    const response = await signInApi.SingIn(Info)
+                    console.log(response)
+                    localStorage.setItem('jwt', response.data.jsonToken)
+                    if (response.data.message === 'details not found') {
+                        toast.error("User not found")
+                    }
+                    if (response.data.role === 'admin') {
+                        toast.success("Login successful as admin")
+                        navigate('/admin/events')
+                    }
+                    else if (response.data.message === "admin authentication failed") {
+                        toast.error("Invalid Credentials")
+                    }
+                    else if (response.data.role === 'user') {
+                        navigate('/user/profile')
+                        toast.success("Login successful")
+                    }
+                    else if (response.data.message === "user authentication failed") {
+                        toast.error("Invalid Credentials")
+                    }
+                    
+                    localStorage.setItem("id", response.data.user.id)
+
+                } catch (error) {
+                    console.error("Error signing in:", error);
                 }
-                else if (response.data.role === 'user') {
-                    navigate('/user/profile')
-                    toast.success("Login successful")
-                }
 
-            } catch (error) {
-                console.error("Error signing in:", error);
             }
-
-        } else {
+        }
+        else {
             toast.error("All fields are required!");
         }
     };
@@ -117,7 +130,7 @@ const SignIn = () => {
                         </button>
                     </div>
 
-               
+
                 </form>
                 <ToastContainer autoClose={5000} position="top-right" />
             </div>

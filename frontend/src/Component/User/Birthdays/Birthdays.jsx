@@ -53,8 +53,8 @@ function Calenders() {
     let name = b.first_name
     let birth = {
       'title': name + "'s Birthday",
-      'start': new Date(year, month, day + 1),
-      'end': new Date(year, month, day + 1),
+      'start': new Date(year, month, day),
+      'end': new Date(year, month, day),
       'type': b.type
     }
     return birth
